@@ -1,21 +1,34 @@
-/**
- * Classe représentant un biome, avec son nom et sa couleur (r, g, b).
- */
 public class Biome {
-    public String nom;
-    public int r, g, b;
 
-    /**
-     * Constructeur de la classe Biome
-     * @param nom le nom du biome
-     * @param r la composante rouge de la couleur du biome (entre 0 et 255)
-     * @param g la composante verte de la couleur du biome (entre 0 et 255)
-     * @param b la composante bleue de la couleur du biome (entre 0 et 255)
-     */
-    public Biome(String nom, int r, int g, int b) {
+    private String nom;
+    private int rouge;
+    private int vert;
+    private int bleu;
+
+    public Biome(String nom, int rouge, int vert, int bleu) {
         this.nom = nom;
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.rouge = rouge;
+        this.vert = vert;
+        this.bleu = bleu;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getRouge() {
+        return rouge;
+    }
+
+    public int getVert() {
+        return vert;
+    }
+
+    public int getBleu() {
+        return bleu;
+    }
+
+    public double[] getCouleur() {
+        return new double[] { rouge, vert, bleu };
     }
 }
