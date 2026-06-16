@@ -97,5 +97,77 @@ public class Main {
 
         ImageIO.write(imageGlacier, "PNG", new File("biome_glacier.png"));
         System.out.println("Image sauvegardee : biome_glacier.png");
+
+        // 8) Detection des ecosystemes : Eau profonde
+        int[] ecosystemesEauProfonde = DetectionEcosystemes.detecterEcosystemes(
+                imageFloutee,
+                clusters,
+                etiquettes,
+                "Eau profonde"
+        );
+
+        int nbEcosystemesEauProfonde = DetectionEcosystemes.compterEcosystemes(ecosystemesEauProfonde);
+        System.out.println("Nombre d'ecosystemes Eau profonde : " + nbEcosystemesEauProfonde);
+
+        BufferedImage imageEcosystemesEauProfonde = VisualisationEcosystemes.creerImageEcosystemes(
+                imageFloutee,
+                ecosystemesEauProfonde
+        );
+
+        ImageIO.write(
+                imageEcosystemesEauProfonde,
+                "PNG",
+                new File("ecosystemes_eau_profonde.png")
+        );
+
+        System.out.println("Image sauvegardee : ecosystemes_eau_profonde.png");
+
+        // 9) Detection des ecosystemes : Desert
+        int[] ecosystemesDesert = DetectionEcosystemes.detecterEcosystemes(
+                imageFloutee,
+                clusters,
+                etiquettes,
+                "Desert"
+        );
+
+        int nbEcosystemesDesert = DetectionEcosystemes.compterEcosystemes(ecosystemesDesert);
+        System.out.println("Nombre d'ecosystemes Desert : " + nbEcosystemesDesert);
+
+        BufferedImage imageEcosystemesDesert = VisualisationEcosystemes.creerImageEcosystemes(
+                imageFloutee,
+                ecosystemesDesert
+        );
+
+        ImageIO.write(
+                imageEcosystemesDesert,
+                "PNG",
+                new File("ecosystemes_desert.png")
+        );
+
+        System.out.println("Image sauvegardee : ecosystemes_desert.png");
+
+        // 10) Detection des ecosystemes : Foret tropicale
+        int[] ecosystemesForetTropicale = DetectionEcosystemes.detecterEcosystemes(
+                imageFloutee,
+                clusters,
+                etiquettes,
+                "Foret tropicale"
+        );
+
+        int nbEcosystemesForetTropicale = DetectionEcosystemes.compterEcosystemes(ecosystemesForetTropicale);
+        System.out.println("Nombre d'ecosystemes Foret tropicale : " + nbEcosystemesForetTropicale);
+
+        BufferedImage imageEcosystemesForetTropicale = VisualisationEcosystemes.creerImageEcosystemes(
+                imageFloutee,
+                ecosystemesForetTropicale
+        );
+
+        ImageIO.write(
+                imageEcosystemesForetTropicale,
+                "PNG",
+                new File("ecosystemes_foret_tropicale.png")
+        );
+
+        System.out.println("Image sauvegardee : ecosystemes_foret_tropicale.png");
     }
 }
