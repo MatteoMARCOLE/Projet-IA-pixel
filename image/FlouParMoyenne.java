@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 public final class FlouParMoyenne {
 
     private FlouParMoyenne() {
-        // utilitaire
     }
 
     /**

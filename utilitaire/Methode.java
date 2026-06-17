@@ -10,7 +10,6 @@ import biome.Biome;
 public final class Methode {
 
     private Methode() {
-        // Classe utilitaire.
     }
 
     /**

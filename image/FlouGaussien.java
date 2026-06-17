@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 public final class FlouGaussien {
 
     private FlouGaussien() {
-        // utilitaire
     }
 
     /**
