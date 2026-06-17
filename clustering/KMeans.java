@@ -6,7 +6,7 @@ import java.util.Random;
 import distance.Distance;
 
 /**
- * Implémentation de K-Means.
+ * Implémentation de K-Means en suivant le principe présenté dans le cours.
  *
  * Étapes :
  * 1. choisir des centroïdes de départ ;
@@ -115,8 +115,7 @@ public class KMeans implements ClusteringInterface {
             effectifs[cluster]++;
 
             for (int caracteristique = 0; caracteristique < nombreCaracteristiques; caracteristique++) {
-                sommes[cluster][caracteristique]
-                    += descriptions[objet][caracteristique];
+                sommes[cluster][caracteristique] += descriptions[objet][caracteristique];
             }
         }
 
@@ -126,8 +125,7 @@ public class KMeans implements ClusteringInterface {
             }
 
             for (int caracteristique = 0; caracteristique < nombreCaracteristiques; caracteristique++) {
-                centroides[cluster][caracteristique]
-                    = sommes[cluster][caracteristique] / effectifs[cluster];
+                centroides[cluster][caracteristique] = sommes[cluster][caracteristique] / effectifs[cluster];
             }
         }
     }
