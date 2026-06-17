@@ -18,6 +18,13 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] arguments) {
+        if (arguments.length == 0) {
+            System.out.println("Utilisation : java app.Main <image> [nombreBiomes] [flou]");
+            System.out.println("Exemple : java app.Main Planete1.jpg 10 gaussien");
+            System.out.println("Flous disponibles : gaussien ou moyenne");
+            return;
+        }
+
         String cheminImage = arguments[0];
         int nombreBiomes = 10;
         boolean utiliserFlouGaussien = true;
@@ -66,17 +73,23 @@ public class Main {
             ImageUtils.enregistrerImage(biomes.imageFloutee, "resultats/image_floutee.png");
             ImageUtils.enregistrerImage(ImageUtils.creerImageBiomes(biomes), "resultats/biomes.png");
 
-            // Fusion des clusters ayant le meme nom de biome
+            // Affiche les clusters qui partagent le meme nom de biome
             FusionBiomes.afficherFusion(biomes.nomsClusters);
 
-            BufferedImage imageBiomesFusionnes = FusionBiomes.creerImageBiomesFusionnes(
+            // Fusion uniquement des clusters ayant le nom "Eau profonde"
+            BufferedImage imageEauProfondeFusionnee = FusionBiomes.creerImageBiomeFusionne(
                     biomes.imageFloutee,
                     biomes.affectations,
-                    biomes.nomsClusters
+                    biomes.nomsClusters,
+                    "Eau profonde"
             );
 
-            ImageUtils.enregistrerImage(imageBiomesFusionnes, "resultats/biomes_fusionnes.png");
-            System.out.println("Image sauvegardee : resultats/biomes_fusionnes.png");
+            ImageUtils.enregistrerImage(
+                    imageEauProfondeFusionnee,
+                    "resultats/eau_profonde_fusionnee.png"
+            );
+
+            System.out.println("Image sauvegardee : resultats/eau_profonde_fusionnee.png");
 
             for (int biome = 0; biome < nombreBiomes; biome++) {
                 if (biomes.estClusterIgnore(biome)) {
