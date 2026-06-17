@@ -73,24 +73,9 @@ public class Main {
             ImageUtils.enregistrerImage(biomes.imageFloutee, "resultats/image_floutee.png");
             ImageUtils.enregistrerImage(ImageUtils.creerImageBiomes(biomes), "resultats/biomes.png");
 
-            // Affiche les clusters qui partagent le meme nom de biome
-            FusionBiomes.afficherFusion(biomes.nomsClusters);
+            FusionBiomes.afficherFusion(biomes);
 
-            // Fusion uniquement des clusters ayant le nom "Eau profonde"
-            BufferedImage imageEauProfondeFusionnee = FusionBiomes.creerImageBiomeFusionne(
-                    biomes.imageFloutee,
-                    biomes.affectations,
-                    biomes.nomsClusters,
-                    "Eau profonde"
-            );
-
-            ImageUtils.enregistrerImage(
-                    imageEauProfondeFusionnee,
-                    "resultats/eau_profonde_fusionnee.png"
-            );
-
-            System.out.println("Image sauvegardee : resultats/eau_profonde_fusionnee.png");
-
+            // Images des clusters separes
             for (int biome = 0; biome < nombreBiomes; biome++) {
                 if (biomes.estClusterIgnore(biome)) {
                     System.out.println("Cluster " + biome + " : contour de carte ignore");
@@ -111,23 +96,37 @@ public class Main {
                 ImageUtils.enregistrerImage(imageBiome, "resultats/biome_" + biome + ".png");
             }
 
-            System.out.println("2. Detection des ecosystemes...");
+            // Images fusionnees par nom de biome
+            String[] biomesUniques = FusionBiomes.obtenirBiomesUniques(biomes);
 
-            for (int biome = 0; biome < nombreBiomes; biome++) {
-                if (biomes.estClusterIgnore(biome)) {
-                    continue;
-                }
+            for (String nomBiome : biomesUniques) {
+                String nomFichier = FusionBiomes.nomFichierPropre(nomBiome);
 
-                ResultatEcosystemes ecosystemes = DetecteurEcosystemes.detecterEcosystemes(
+                BufferedImage imageBiomeFusionne = FusionBiomes.creerImageBiomeFusionne(biomes, nomBiome);
+
+                ImageUtils.enregistrerImage(
+                        imageBiomeFusionne,
+                        "resultats/fusion_" + nomFichier + ".png"
+                );
+
+                System.out.println("Image fusionnee sauvegardee : resultats/fusion_" + nomFichier + ".png");
+            }
+
+            System.out.println("2. Detection des ecosystemes basee sur les biomes fusionnes...");
+
+            // Les ecosystemes sont maintenant calcules par nom de biome fusionne
+            for (String nomBiome : biomesUniques) {
+                String nomFichier = FusionBiomes.nomFichierPropre(nomBiome);
+
+                ResultatEcosystemes ecosystemes = DetecteurEcosystemes.detecterEcosystemesFusionnes(
                         biomes,
-                        biome,
+                        nomBiome,
                         epsilon,
                         nombrePointsMinimum
                 );
 
                 System.out.println(
-                        "Biome " + biome +
-                        " (" + biomes.nomsClusters[biome] + ") : " +
+                        "Biome fusionne " + nomBiome + " : " +
                         ecosystemes.nombreEcosystemes +
                         " ecosysteme(s)"
                 );
@@ -135,7 +134,7 @@ public class Main {
                 BufferedImage imageEcosystemes = ImageUtils.creerImageEcosystemes(biomes, ecosystemes);
                 ImageUtils.enregistrerImage(
                         imageEcosystemes,
-                        "resultats/ecosystemes_biome_" + biome + ".png"
+                        "resultats/ecosystemes_" + nomFichier + ".png"
                 );
             }
 
