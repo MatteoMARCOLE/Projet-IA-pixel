@@ -101,12 +101,9 @@ public final class DetecteurBiomes {
                 continue;
             }
 
-            couleursCentroides[cluster][0]
-                = sommes[cluster][0] / effectifs[cluster];
-            couleursCentroides[cluster][1]
-                = sommes[cluster][1] / effectifs[cluster];
-            couleursCentroides[cluster][2]
-                = sommes[cluster][2] / effectifs[cluster];
+            couleursCentroides[cluster][0] = sommes[cluster][0] / effectifs[cluster];
+            couleursCentroides[cluster][1] = sommes[cluster][1] / effectifs[cluster];
+            couleursCentroides[cluster][2] = sommes[cluster][2] / effectifs[cluster];
         }
 
         return couleursCentroides;
