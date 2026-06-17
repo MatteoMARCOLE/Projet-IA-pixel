@@ -17,9 +17,8 @@ import utilitaire.Methode;
 public final class DetecteurBiomes {
 
     /*
-     * Le contour dessiné sur la carte est très sombre et ne représente pas
-     * un biome. On ignore donc les petits clusters dont la couleur moyenne
-     * est très sombre.
+     * Le contour dessiné sur la carte est très sombre et ne représente pas un biome.
+     * On ignore donc les petits clusters dont la couleur moyenne est très sombre.
      */
     private static final int LUMINOSITE_MAX_CONTOUR = 70;
     private static final double PROPORTION_MAX_CONTOUR = 0.06;
@@ -51,8 +50,8 @@ public final class DetecteurBiomes {
         boolean[] clustersIgnores = detecterClustersDeContour(couleursCentroides, effectifs, largeur * hauteur);
 
         /*
-         * Les pixels du contour reçoivent l'affectation -1. Ils ne seront
-         * donc ni considérés comme un biome, ni envoyés à DBSCAN.
+         * Les pixels du contour reçoivent l'affectation -1.
+         * Ils ne seront donc ni considérés comme un biome, ni envoyés à DBSCAN.
          */
         for (int pixel = 0; pixel < affectations.length; pixel++) {
             int cluster = affectations[pixel];

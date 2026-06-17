@@ -6,8 +6,7 @@ import java.awt.image.BufferedImage;
 /**
  * Classe implémentant un filtre de flou par moyenne simple.
  *
- * Le filtre 3×3 applique une moyenne uniforme sur le pixel central et ses
- * voisins. Les bords de l'image sont recopiés sans modification.
+ * Le filtre 3×3 applique une moyenne uniforme sur le pixel central et ses voisins. Les bords de l'image sont recopiés sans modification.
  */
 public final class FlouParMoyenne {
 

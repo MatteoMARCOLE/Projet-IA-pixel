@@ -6,7 +6,7 @@ import java.util.Random;
 import distance.Distance;
 
 /**
- * Implémentation de K-Means en suivant le principe présenté dans le cours.
+ * Implémentation de K-Means.
  *
  * Étapes :
  * 1. choisir des centroïdes de départ ;

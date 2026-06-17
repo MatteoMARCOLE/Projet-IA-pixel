@@ -71,8 +71,7 @@ public final class ImageUtils {
 
                 if (cluster < 0) {
                     /*
-                     * Le contour de la carte est conservé visuellement,
-                     * mais il ne possède aucun numéro de biome.
+                     * Le contour de la carte est conservé visuellement, mais il ne possède aucun numéro de biome.
                      */
                     rouge = (int) biomes.descriptionsRGB[indice][0];
                     vert = (int) biomes.descriptionsRGB[indice][1];

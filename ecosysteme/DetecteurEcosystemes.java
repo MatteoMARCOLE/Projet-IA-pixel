@@ -10,8 +10,7 @@ import distance.DistanceEuclidienne;
 /**
  * Détecte les écosystèmes d'un biome avec DBSCAN.
  *
- * Chaque pixel du biome est décrit uniquement par sa position [x, y], comme
- * demandé dans le sujet.
+ * Chaque pixel du biome est décrit uniquement par sa position [x, y].
  */
 public final class DetecteurEcosystemes {
 
