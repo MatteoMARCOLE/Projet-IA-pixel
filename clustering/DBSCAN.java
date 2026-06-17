@@ -9,9 +9,9 @@ import distance.Distance;
 /**
  * Implémentation de DBSCAN en suivant directement le pseudo-code du cours.
  *
- * Un point est un point cœur s'il possède au moins MinPts voisins dans un
- * rayon Epsilon. Les points accessibles depuis un point cœur sont ajoutés au
- * même cluster. Les points qui ne rejoignent aucun cluster sont du bruit.
+ * Un point est un point cœur s'il possède au moins MinPts voisins dans un rayon Epsilon.
+ * Les points accessibles depuis un point cœur sont ajoutés au même cluster.
+ * Les points qui ne rejoignent aucun cluster sont du bruit.
  */
 public class DBSCAN implements ClusteringInterface {
 

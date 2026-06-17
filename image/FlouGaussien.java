@@ -7,11 +7,11 @@ import java.awt.image.BufferedImage;
  * Classe implémentant un flou gaussien 3×3 classique.
  *
  * Le noyau utilisé est :
- * <pre>
+ *
  * 1 2 1
  * 2 4 2
  * 1 2 1
- * </pre>
+ *
  * Le diviseur est 16. Les bords sont recopiés sans modification.
  */
 public final class FlouGaussien {
