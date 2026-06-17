@@ -18,13 +18,6 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] arguments) {
-        if (arguments.length == 0) {
-            System.out.println("Utilisation : java app.Main <image> [nombreBiomes] [flou]");
-            System.out.println("Exemple : java app.Main Planete1.jpg 10 gaussien");
-            System.out.println("Flous disponibles : gaussien ou moyenne");
-            return;
-        }
-
         String cheminImage = arguments[0];
         int nombreBiomes = 10;
         boolean utiliserFlouGaussien = true;
