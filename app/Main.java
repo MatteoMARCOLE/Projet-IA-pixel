@@ -1,14 +1,14 @@
 package app;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
 import biome.DetecteurBiomes;
 import biome.ResultatBiomes;
 import ecosysteme.DetecteurEcosystemes;
+import ecosysteme.FusionBiomes;
 import ecosysteme.ResultatEcosystemes;
 import image.ImageUtils;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Programme principal du projet.
@@ -55,16 +55,32 @@ public class Main {
 
             BufferedImage imageOriginale = ImageUtils.chargerImage(cheminImage);
 
-            System.out.println("1. Détection des biomes...");
+            System.out.println("1. Detection des biomes...");
 
-            ResultatBiomes biomes = DetecteurBiomes.detecterBiomes(imageOriginale, nombreBiomes, utiliserFlouGaussien);
+            ResultatBiomes biomes = DetecteurBiomes.detecterBiomes(
+                    imageOriginale,
+                    nombreBiomes,
+                    utiliserFlouGaussien
+            );
 
             ImageUtils.enregistrerImage(biomes.imageFloutee, "resultats/image_floutee.png");
             ImageUtils.enregistrerImage(ImageUtils.creerImageBiomes(biomes), "resultats/biomes.png");
 
+            // Fusion des clusters ayant le meme nom de biome
+            FusionBiomes.afficherFusion(biomes.nomsClusters);
+
+            BufferedImage imageBiomesFusionnes = FusionBiomes.creerImageBiomesFusionnes(
+                    biomes.imageFloutee,
+                    biomes.affectations,
+                    biomes.nomsClusters
+            );
+
+            ImageUtils.enregistrerImage(imageBiomesFusionnes, "resultats/biomes_fusionnes.png");
+            System.out.println("Image sauvegardee : resultats/biomes_fusionnes.png");
+
             for (int biome = 0; biome < nombreBiomes; biome++) {
                 if (biomes.estClusterIgnore(biome)) {
-                    System.out.println("Cluster " + biome + " : contour de carte ignoré");
+                    System.out.println("Cluster " + biome + " : contour de carte ignore");
                     continue;
                 }
 
@@ -72,32 +88,50 @@ public class Main {
                 int vert = (int) Math.round(biomes.couleursCentroides[biome][1]);
                 int bleu = (int) Math.round(biomes.couleursCentroides[biome][2]);
 
-                System.out.println("Biome " + biome + " : " + biomes.nomsClusters[biome] + " [" + rouge + ", " + vert + ", " + bleu + "]");
+                System.out.println(
+                        "Biome " + biome + " : " +
+                        biomes.nomsClusters[biome] +
+                        " [" + rouge + ", " + vert + ", " + bleu + "]"
+                );
 
                 BufferedImage imageBiome = ImageUtils.mettreEnAvantBiome(biomes, biome, 75.0);
                 ImageUtils.enregistrerImage(imageBiome, "resultats/biome_" + biome + ".png");
             }
 
-            System.out.println("2. Détection des écosystèmes...");
+            System.out.println("2. Detection des ecosystemes...");
 
             for (int biome = 0; biome < nombreBiomes; biome++) {
                 if (biomes.estClusterIgnore(biome)) {
                     continue;
                 }
 
-                ResultatEcosystemes ecosystemes = DetecteurEcosystemes.detecterEcosystemes(biomes, biome, epsilon, nombrePointsMinimum);
+                ResultatEcosystemes ecosystemes = DetecteurEcosystemes.detecterEcosystemes(
+                        biomes,
+                        biome,
+                        epsilon,
+                        nombrePointsMinimum
+                );
 
-                System.out.println("Biome " + biome + " (" + biomes.nomsClusters[biome] + ") : " + ecosystemes.nombreEcosystemes + " écosystème(s)");
+                System.out.println(
+                        "Biome " + biome +
+                        " (" + biomes.nomsClusters[biome] + ") : " +
+                        ecosystemes.nombreEcosystemes +
+                        " ecosysteme(s)"
+                );
 
                 BufferedImage imageEcosystemes = ImageUtils.creerImageEcosystemes(biomes, ecosystemes);
-                ImageUtils.enregistrerImage(imageEcosystemes, "resultats/ecosystemes_biome_" + biome + ".png");
+                ImageUtils.enregistrerImage(
+                        imageEcosystemes,
+                        "resultats/ecosystemes_biome_" + biome + ".png"
+                );
             }
 
-            System.out.println("Traitement terminé. Les images sont dans le dossier resultats.");
+            System.out.println("Traitement termine. Les images sont dans le dossier resultats.");
+
         } catch (IOException exception) {
             System.err.println("Erreur avec l'image : " + exception.getMessage());
         } catch (IllegalArgumentException exception) {
-            System.err.println("Erreur de paramètre : " + exception.getMessage());
+            System.err.println("Erreur de parametre : " + exception.getMessage());
         }
     }
 }
